@@ -1,0 +1,239 @@
+1
+SELECT COUNT(*) as number_books  
+FROM books b
+WHERE b.Rating >8.5
+////////////////////////
+2
+SELECT b.Rating  
+FROM books b
+ORDER BY b.Rating DESC LIMIT 1
+///////////////
+3
+SELECT COUNT(*) 
+FROM books b
+WHERE b.Genre LIKE 'Fantasy'
+//////////////////////
+4
+SELECT COUNT(*) 
+FROM books b
+WHERE b.Genre LIKE 'Drama'
+////////////////////////
+5
+SELECT COUNT(*) 
+FROM books b
+WHERE b.Published_Year LIKE '2018' 
+///////////////////
+6
+SELECT b.Pages 
+FROM books b
+ORDER BY b.Pages LIMIT 1
+/////////////////////////////
+7
+SELECT COUNT(b.Reviews_Count)
+FROM books b
+WHERE b.Reviews_Count >300000
+///////////////////////////////
+8
+SELECT COUNT(b.Price)
+FROM books b
+WHERE b.Price >30
+////////////////////////////
+9
+SELECT AVG(b.Rating)
+FROM books b
+/////////////////////
+10
+SELECT COUNT(8) as lan
+FROM books b
+WHERE b.Language LIKE 'English'
+////////////////////////
+11
+SELECT COUNT(*) as f ,b.Genre
+FROM books b
+GROUP BY b.Genre
+ORDER BY f DESC LIMIT 1
+////////////////////////
+12
+SELECT COUNT(b.Genre) as num   
+FROM books b
+WHERE b.Genre LIKE '%Adventure%'
+////////////////////////
+13
+SELECT COUNT(b.Pages) as num   
+FROM books b
+WHERE b.Pages >=300 and b.Pages <=500
+////////////////////////////
+14
+SELECT COUNT(*) as num ,b.Published_Year  
+FROM books b
+WHERE b.Published_Year> '1950'
+GROUP BY b.Published_Year
+ORDER BY num;
+////////////////////////////
+15
+SELECT MAX(b.Price)  ,b.Genre
+FROM books b
+WHERE b.Genre LIKE 'Science Fiction'
+/////////////////////////
+16
+SELECT COUNT(*) num 
+FROM books b
+WHERE b.Rating BETWEEN 8.0 AND 8.5
+///////////////////////////
+17
+SELECT AVG(b.Reviews_Count)
+FROM books b
+WHERE b.Genre LIKE '%Romance%'
+////////////////////////////
+18
+SELECT  COUNT(*) as num
+FROM books b
+WHERE b.Published_Year <'2000'
+/////////////////////////////
+19
+SELECT  b.Genre ,AVG(b.Rating) as av
+FROM books b
+GROUP BY b.Genre
+ORDER BY av DESC LIMIT 1
+/////////////////////////
+20
+SELECT  MAX(b.Pages), b.Genre
+FROM books b
+WHERE b.Genre LIKE '%Historical%'
+/////////////////////////////
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+21
+SELECT  COUNT(*)
+FROM sports_events 
+WHERE YEAR(STR_TO_DATE(Date,'%m/%d/%Y'))= 2023
+///////////////////////////////////
+22
+SELECT max(f.Attendance)
+FROM sports_events f  
+///////////////////////////////
+23
+SELECT COUNT(*)
+FROM sports_events s
+WHERE s.Sport_Type LIKE 'Football'
+//////////////////////////
+24
+SELECT COUNT(*) 
+FROM sports_events s
+WHERE s.Sport_Type LIKE 'Racing'  AND (s.Location LIKE 'USA' OR s.Location LIKE 'Monaco')
+//////////////////////////////////////////////////////////////
+25
+SELECT  AVG(s.TV_Viewers_Millions)
+FROM sports_events s
+WHERE (s.Sport_Type LIKE 'Tennis' or s.Sport_Type LIKE 'Golf') AND s.Sport_Type < 5
+///////////////////////////////////////////////////
+26
+SELECT COUNT(*)
+FROM sports_events s
+WHERE s.Attendance =0
+////////////////////////////////////////
+27
+SELECT   min(S.Prize_Money)
+FROM sports_events S
+//////////////////////
+28
+SELECT COUNT(*)
+FROM sports_events s
+WHERE s.Prize_Money>100000000
+/////////////////////
+29
+SELECT  COUNT(*) as num,s.Date
+FROM sports_events s
+GROUP BY YEAR(STR_TO_DATE(Date,'%m/%d/%Y'))
+ORDER BY num DESC LIMIT 1
+//////////////////////////////////////
+30
+SELECT s.Date
+FROM sports_events s
+ORDER BY  YEAR(STR_TO_DATE(Date,'%m/%d/%Y')) LIMIT 1
+/////////////////////////////////////
+31
+SELECT COUNT(*) as num , s.Sport_Type
+FROM sports_events s
+GROUP BY s.Sport_Type
+ORDER BY num DESC LIMIT 1
+//////////////////////////////// 
+32
+SELECT  COUNT(*)
+FROM sports_events s
+WHERE s.Sport_Type LIKE '%Championship%'
+////////////////////////////
+33
+SELECT  COUNT(*)
+FROM sports_events s
+WHERE s.Participants >=100 and s.Participants <=1000
+/////////////////////////////////////////
+34
+SELECT  COUNT(*)as num,s.Date 
+FROM sports_events s
+GROUP BY YEAR(STR_TO_DATE(s.Date,'%m/%d/%Y'))
+ORDER BY num LIMIT 1
+////////////////////////////////////////
+35
+SELECT  MAX(s.Prize_Money)
+FROM sports_events s
+WHERE s.Sport_Type LIKE 'Basketball'
+///////////////////////////
+36
+SELECT  COUNT(*) as num
+FROM sports_events s
+WHERE (YEAR(STR_TO_DATE(Date,'%m/%d/%Y')) BETWEEN 2020 and 2023) and Rating>8.0
+/////////////////////////////////////////////
+37
+SELECT  AVG(s.Attendance) as num
+FROM sports_events s	
+WHERE s.Sport_Type LIKE 'Football'
+//////////////////////////////////////////
+38
+SELECT  s.Rating,s.Prize_Money
+FROM sports_events s	
+ORDER BY s.Rating DESC LIMIT 1
+
+22222222222222222222222222
+
+SELECT MAX(s.Prize_Money) AS max_prize_for_top_rating
+FROM sports_events s
+WHERE Rating = (SELECT MAX(Rating) FROM sports_events);
+/////////////////////////////
+39
+SELECT 
+    EventName,
+    Days_Duration,
+    Attendance,
+    (Days_Duration + Attendance) AS total_value
+FROM events_sports
+ORDER BY total_value ASC
+LIMIT 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+############################################################
+BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+
+יצירת עמודה
+ALTER TABLE events_sports
+ADD COLUMN value_year YEAR;
+
+הוספת ערכים עם שאילתה
+UPDATE events_sports
+SET value_year = (
+    SELECT something
+    FROM some_table
+    WHERE some_table.id = events_sports.id
+);
+
+
